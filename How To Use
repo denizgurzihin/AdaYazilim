@@ -1,0 +1,87 @@
+Gerekli dosyalar bilgisayara indirilip çalıştırıldıktan sonra 
+
+1. https://localhost:5001/AdaYazilim/TryReservation, bu urle Postman gibi bir aracı tool üzerinden post isteği açılır
+2. Requestin body kısmına sonucu istenilen input yazılır ve gönderilir.
+3. Postman gibi bir aracı tool üzerinde requestion sonucu görüntülenebilir. 
+
+Yazılan kod için örnek çıktı aşağıdaki gibidir. 
+Input: 
+{
+    "Tren":
+    {
+        "Ad":"Başkent Ekspres",
+        "Vagonlar":
+        [
+            {"Ad":"Vagon 1", "Kapasite":101, "DoluKoltukAdet":69},
+            {"Ad":"Vagon 2", "Kapasite":101, "DoluKoltukAdet":69},
+            {"Ad":"Vagon 3", "Kapasite":80, "DoluKoltukAdet":20}
+        ]
+    },
+    "RezervasyonYapilacakKisiSayisi":70,
+    "KisilerFarkliVagonlaraYerlestirilebilir":true
+}
+Output :
+{
+    "rezervasyonYapilabilir": true,
+    "yerlesimAyrinti": [
+        {
+            "vagonAdi": "Vagon 1",
+            "kisiSayisi": 32
+        },
+        {
+            "vagonAdi": "Vagon 2",
+            "kisiSayisi": 32
+        },
+        {
+            "vagonAdi": "Vagon 3",
+            "kisiSayisi": 6
+        }
+    ]
+}
+
+Input: 
+{
+    "Tren":
+    {
+        "Ad":"Başkent Ekspres",
+        "Vagonlar":
+        [
+            {"Ad":"Vagon 1", "Kapasite":101, "DoluKoltukAdet":69},
+            {"Ad":"Vagon 2", "Kapasite":101, "DoluKoltukAdet":69},
+            {"Ad":"Vagon 3", "Kapasite":80, "DoluKoltukAdet":20}
+        ]
+    },
+    "RezervasyonYapilacakKisiSayisi":70,
+    "KisilerFarkliVagonlaraYerlestirilebilir":false
+}
+Output:
+{
+    "rezervasyonYapilabilir": false,
+    "yerlesimAyrinti": []
+}
+
+Input:
+{
+    "Tren":
+    {
+        "Ad":"Başkent Ekspres",
+        "Vagonlar":
+        [
+            {"Ad":"Vagon 1", "Kapasite":101, "DoluKoltukAdet":30},
+            {"Ad":"Vagon 2", "Kapasite":101, "DoluKoltukAdet":30},
+            {"Ad":"Vagon 3", "Kapasite":80, "DoluKoltukAdet":20}
+        ]
+    },
+    "RezervasyonYapilacakKisiSayisi":70,
+    "KisilerFarkliVagonlaraYerlestirilebilir":false
+}
+Output:
+{
+    "rezervasyonYapilabilir": true,
+    "yerlesimAyrinti": [
+        {
+            "vagonAdi": "Vagon 1",
+            "kisiSayisi": 70
+        }
+    ]
+}
